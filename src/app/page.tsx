@@ -1,3 +1,4 @@
+import { CallToAction } from "@/components/cta";
 import { Header } from "@/components/elements/Hero";
 import { Footer } from "@/components/footer";
 import { LogoCloud } from "@/components/logo-cloud";
@@ -132,6 +133,9 @@ const page = () => {
         </div>
 
         <TestimonialsSection />
+      </div>
+      <div className="py-30">
+        <CallToAction />
       </div>
       <div className="mt-20">
         <Footer />
