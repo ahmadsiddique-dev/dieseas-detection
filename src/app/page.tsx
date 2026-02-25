@@ -2,8 +2,10 @@ import { CallToAction } from "@/components/cta";
 import { Header } from "@/components/elements/Hero";
 import { Footer } from "@/components/footer";
 import { LogoCloud } from "@/components/logo-cloud";
+import AboutUs1 from "@/components/mvpblocks/about-us-1";
 import Features from "@/components/shadcn-studio/blocks/features-section-01/features-section-01";
 import { TestimonialsSection } from "@/components/testimonials-section";
+import { motion } from 'framer-motion';
 import {
   UploadIcon,
   BrainCircuitIcon,
@@ -78,7 +80,7 @@ const page = () => {
       <Header />
       <div className="mask-b-from-30% relative min-h-[50vh]  sm:min-h-[70vh] flex items-end" id="header">
         {/* Dark gradient overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30 z-10" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-black/30 z-10" />
         {/* Hero content */}
         <div className="relative z-20 w-full max-w-5xl mx-auto px-6 pb-20 pt-40">
           <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl drop-shadow-lg">
@@ -116,6 +118,9 @@ const page = () => {
         </section>
       </div>
       <div>
+        <AboutUs1 />
+      </div>
+      <div>
         <Features featuresList={featuresList} />
       </div>
       <div>
@@ -131,10 +136,25 @@ const page = () => {
             </p>
           </div>
         </div>
-
+      <div className="border-t border-border"></div>
         <TestimonialsSection />
+      <div className="border-t border-border"></div>
       </div>
-      <div className="py-30">
+      <div className="py-20">
+        <div className="relative w-full overflow-hidden">
+          <div className="relative z-10 container mx-auto px-4 md:px-6">
+            <div
+          className="mx-auto mb-16 max-w-2xl text-center"
+        >
+          <h2 className="from-foreground/80 via-foreground to-foreground/80 bg-linear-to-r bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-6xl">
+            Ready to Protect Your Harvest?
+          </h2>
+          <p className="text-muted-foreground mt-6 text-xl">
+            Start using our AI-powered rice leaf disease detection system today and safeguard your crops.
+          </p>
+        </div>
+          </div>
+        </div>
         <CallToAction />
       </div>
       <div className="mt-20">
