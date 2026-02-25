@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 50">
+  <defs>
+    <style>
+      .giz-text { font-family: Arial, Helvetica, sans-serif; }
+    </style>
+  </defs>
+  <!-- GIZ triangle mark -->
+  <polygon points="10,38 25,8 40,38" fill="none" stroke="#C8102E" stroke-width="2.5"/>
+  <polygon points="17,33 25,16 33,33" fill="#C8102E"/>
+  <!-- Text -->
+  <text x="50" y="30" class="giz-text" font-size="28" font-weight="700" fill="#1A1A1A" letter-spacing="4">GIZ</text>
+  <text x="50" y="42" class="giz-text" font-size="5" fill="#666666" letter-spacing="0.2" font-weight="400">DEUTSCHE GESELLSCHAFT FÜR</text>
+  <text x="50" y="48" class="giz-text" font-size="5" fill="#666666" letter-spacing="0.2" font-weight="400">INTERNATIONALE ZUSAMMENARBEIT</text>
+</svg>

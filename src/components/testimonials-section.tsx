@@ -11,25 +11,25 @@ type Testimonial = {
 const testimonials: Testimonial[] = [
 	{
 		quote:
-			"Efferd is so polished I might just retire and become a full-time potato farmer. The ecosystem is in safe hands.",
-		name: "Shadcn",
-		role: "Founder",
-		company: "Shadcn UI",
+			"This system helped me identify Bacterial Leaf Blight in my rice field before it could spread further. The early detection saved a significant portion of my harvest this season.",
+		name: "Muhammad Aslam",
+		role: "Rice Farmer",
+		company: "Punjab, Pakistan",
 	},
 	{
 		quote:
-			"Efferd is why I still have hair. No more pulling it out over centering divs or fighting with CSS grid.",
-		name: "Guillermo Rauch",
-		role: "CEO",
-		company: "Vercel",
+			"As an agricultural extension officer, I recommend this tool to all the farmers in my region. The AI-powered analysis is quick, accurate, and the downloadable reports make record-keeping effortless.",
+		name: "Dr. Fatima Noor",
+		role: "Agricultural Extension Officer",
+		company: "Department of Agriculture",
 	},
 
 	{
 		quote:
-			"I tried to buy Efferd but they wouldn't sell. So I just bought Twitter instead to complain about it.",
-		name: "Elon Musk",
-		role: "CEO",
-		company: "X.com",
+			"I was losing crops every season without knowing why. This disease detection system identified Brown Spot disease on my rice leaves and gave me clear preventive steps to follow.",
+		name: "Rajesh Kumar",
+		role: "Smallholder Farmer",
+		company: "Bihar, India",
 	},
 ];
 

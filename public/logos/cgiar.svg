@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50">
+  <defs>
+    <style>
+      .cgiar-text { font-family: Arial, Helvetica, sans-serif; }
+    </style>
+  </defs>
+  <!-- Colorful dots representing the CGIAR brand -->
+  <circle cx="12" cy="20" r="6" fill="#00A651"/>
+  <circle cx="26" cy="20" r="6" fill="#F7941D"/>
+  <circle cx="40" cy="20" r="6" fill="#2E3192"/>
+  <circle cx="54" cy="20" r="6" fill="#ED1C24"/>
+  <!-- Text -->
+  <text x="68" y="27" class="cgiar-text" font-size="24" font-weight="700" fill="#333333" letter-spacing="3">CGIAR</text>
+  <text x="68" y="40" class="cgiar-text" font-size="5" fill="#666666" letter-spacing="0.3" font-weight="400">RESEARCH FOR A FOOD-SECURE FUTURE</text>
+</svg>

@@ -18,8 +18,8 @@ const fontMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rice Detector",
-  description: "Detect the diesese of rice leaf.",
+  title: "Rice Leaf Disease Detection | AI-Powered Crop Health Analysis",
+  description: "Upload rice leaf images and get instant AI-powered disease detection with detailed reports, confidence scores, and preventive recommendations for smarter farming.",
 };
 
 export default function RootLayout({

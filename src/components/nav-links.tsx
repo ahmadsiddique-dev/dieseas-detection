@@ -1,58 +1,58 @@
 import type { LinkItemType } from "@/components/sheard";
-import { GlobeIcon, LayersIcon, UserPlusIcon, BarChart3Icon, PlugIcon, CodeIcon, UsersIcon, StarIcon, HandshakeIcon, FileTextIcon, ShieldIcon, RotateCcwIcon, LeafIcon, HelpCircleIcon } from "lucide-react";
+import { LeafIcon, LayoutDashboardIcon, FileTextIcon, BarChart3Icon, DatabaseIcon, BrainCircuitIcon, UsersIcon, StarIcon, HandshakeIcon, ShieldIcon, RotateCcwIcon, BookOpenIcon, HelpCircleIcon } from "lucide-react";
 
 export const productLinks: LinkItemType[] = [
 	{
-		label: "Website Builder",
+		label: "Disease Detection",
 		href: "#",
-		description: "Create responsive websites with ease",
+		description: "Upload a rice leaf image for instant AI analysis",
 		icon: (
-			<GlobeIcon
+			<BrainCircuitIcon
 			/>
 		),
 	},
 	{
-		label: "Cloud Platform",
+		label: "User Dashboard",
 		href: "#",
-		description: "Deploy and scale apps in the cloud",
+		description: "View results, history, and manage your account",
 		icon: (
-			<LayersIcon
+			<LayoutDashboardIcon
 			/>
 		),
 	},
 	{
-		label: "Team Collaboration",
+		label: "Detection Reports",
 		href: "#",
-		description: "Tools to help your teams work better together",
+		description: "Download detailed disease analysis reports",
 		icon: (
-			<UserPlusIcon
+			<FileTextIcon
+			/>
+		),
+	},
+	{
+		label: "Detection History",
+		href: "#",
+		description: "Access all your past detection records",
+		icon: (
+			<DatabaseIcon
+			/>
+		),
+	},
+	{
+		label: "Disease Library",
+		href: "#",
+		description: "Browse supported rice leaf diseases and treatments",
+		icon: (
+			<LeafIcon
 			/>
 		),
 	},
 	{
 		label: "Analytics",
 		href: "#",
-		description: "Track and analyze your website traffic",
+		description: "Track detection trends and crop health insights",
 		icon: (
 			<BarChart3Icon
-			/>
-		),
-	},
-	{
-		label: "Integrations",
-		href: "#",
-		description: "Connect your apps and services",
-		icon: (
-			<PlugIcon
-			/>
-		),
-	},
-	{
-		label: "API",
-		href: "#",
-		description: "Build custom integrations with our API",
-		icon: (
-			<CodeIcon
 			/>
 		),
 	},
@@ -62,29 +62,29 @@ export const companyLinks: LinkItemType[] = [
 	{
 		label: "About Us",
 		href: "#",
-		description: "Learn more about our story and team",
+		description: "Learn about our mission to support farmers",
 		icon: (
 			<UsersIcon
 			/>
 		),
 	},
 	{
-		label: "Customer Stories",
+		label: "Success Stories",
 		href: "#",
-		description: "See how we've helped our clients succeed",
+		description: "See how farmers benefit from early disease detection",
 		icon: (
 			<StarIcon
 			/>
 		),
 	},
 	{
-		label: "Partnerships",
+		label: "Research Partners",
 		href: "#",
 		icon: (
 			<HandshakeIcon
 			/>
 		),
-		description: "Collaborate with us for mutual growth",
+		description: "Our collaborations with agricultural institutions",
 	},
 ];
 
@@ -106,7 +106,7 @@ export const companyLinks2: LinkItemType[] = [
 		),
 	},
 	{
-		label: "Refund Policy",
+		label: "Data Policy",
 		href: "#",
 		icon: (
 			<RotateCcwIcon
@@ -114,10 +114,10 @@ export const companyLinks2: LinkItemType[] = [
 		),
 	},
 	{
-		label: "Blog",
+		label: "Agricultural Blog",
 		href: "#",
 		icon: (
-			<LeafIcon
+			<BookOpenIcon
 			/>
 		),
 	},

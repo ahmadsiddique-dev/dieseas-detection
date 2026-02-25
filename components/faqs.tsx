@@ -15,7 +15,7 @@ export function FaqsSection() {
 						Frequently Asked Questions
 					</h2>
 					<p className="text-muted-foreground">
-						Quick answers to common questions about Efferd. Open any question to
+						Quick answers to common questions about our AI-Based Rice Leaf Disease Detection System. Open any question to
 						learn more.
 					</p>
 					<p className="text-muted-foreground">
@@ -61,44 +61,44 @@ export function FaqsSection() {
 const faqs = [
 	{
 		id: "item-1",
-		title: "What is Efferd?",
+		title: "What is the AI-Based Rice Leaf Disease Detection System?",
 		content:
-			"Efferd is a collection of beautifully crafted Shadcn UI blocks and components, designed to help developers build modern websites with ease.",
+			"It is an intelligent web-based system that allows farmers and users to upload images of rice plant leaves. The system uses a trained AI model to analyze the image, detect possible diseases, and provide useful recommendations for preventive action.",
 	},
 	{
 		id: "item-2",
-		title: "Who can benefit from Efferd?",
+		title: "How does the AI detect diseases from a leaf image?",
 		content:
-			"Efferd is built for founders, product teams, and agencies that want to accelerate idea validation and delivery.",
+			"Once you upload a valid rice leaf image, the system preprocesses it and passes it through a trained deep learning model. The model classifies the leaf into one of the supported disease categories and returns the disease name along with a confidence score.",
 	},
 	{
 		id: "item-3",
-		title: "What features does Efferd include?",
+		title: "What image formats and sizes are supported?",
 		content:
-			"Efferd offers a collaborative workspace where you can design and build beautiful web applications, with reusable UI blocks, deployment automation, and comprehensive analytics all in one place. With Efferd, you can streamline your team’s workflow and deliver high-quality websites quickly and efficiently.",
+			"The system accepts standard image formats such as JPG and PNG. There is also a file size limit to ensure efficient processing. If the uploaded image does not meet the format or size requirements, an appropriate error message will be displayed.",
 	},
 	{
 		id: "item-4",
-		title: "Can I customize components in Efferd?",
+		title: "What information is included in the disease analysis report?",
 		content:
-			"Yes. Efferd offers editable design systems and code scaffolding so you can tailor blocks to your brand and workflow.",
+			"The report includes the uploaded leaf image, detected disease name, confidence score, a detailed disease description, recommended preventive measures, and the report generation date and time. You can download this report for your records.",
 	},
 	{
 		id: "item-5",
-		title: "Does Efferd integrate with my existing tools?",
+		title: "Is my data and detection history stored securely?",
 		content:
-			"Efferd connects with popular source control, design tools, and cloud providers to fit into your current stack.",
+			"Yes. Every prediction is automatically stored in the database with the uploaded image, disease name, confidence score, prediction date and time, your user ID, and the model version used. All data is protected with secure user authentication.",
 	},
 	{
 		id: "item-6",
-		title: "How do I get support while using Efferd?",
+		title: "Can I view my past detection records?",
 		content:
-			"You can access detailed docs, community forums, and dedicated customer success channels for help at any time.",
+			"Absolutely. All your previous disease detection records are stored and can be accessed from your user dashboard at any time. Administrators can also view detection history for management purposes.",
 	},
 	{
 		id: "item-7",
-		title: "How do I get started with Efferd?",
+		title: "How do I get started with the system?",
 		content:
-			"You can access detailed docs, community forums, and dedicated customer success channels for help at any time.",
+			"Simply register an account, log in, and upload a rice leaf image from your dashboard. The AI model will analyze the image and display the results within seconds. You can then download the report or view your detection history.",
 	},
 ];

@@ -50,7 +50,7 @@ export function MobileNav() {
 						data-slot={open ? "open" : "closed"}
 					>
 						<div className="flex w-full flex-col gap-y-2">
-							<span className="text-sm">Product</span>
+							<span className="text-sm">Features</span>
 							{productLinks.map((link) => (
 								<LinkItem
 									className="rounded-lg p-2 active:bg-muted dark:active:bg-muted/50"
@@ -78,7 +78,7 @@ export function MobileNav() {
 							<Button className="w-full" variant="outline">
 								Sign In
 							</Button>
-							<Button className="w-full">Get Started</Button>
+							<Button className="w-full">Try Detection</Button>
 						</div>
 					</div>
 				</Portal>

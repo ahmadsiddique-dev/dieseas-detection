@@ -15,7 +15,7 @@ export function DesktopNav() {
 			<NavigationMenuList>
 				<NavigationMenuItem className="bg-transparent">
 					<NavigationMenuTrigger className="bg-transparent">
-						Product
+						Features
 					</NavigationMenuTrigger>
 					<NavigationMenuContent className="bg-muted/50 p-1 pr-1.5 dark:bg-background">
 						<div className="rounded-lg grid w-lg grid-cols-2 gap-2 border bg-popover p-2 shadow">
@@ -32,7 +32,7 @@ export function DesktopNav() {
 									className="font-medium text-foreground hover:underline"
 									href="#"
 								>
-									Schedule a demo
+									Try it now
 								</a>
 							</p>
 						</div>
@@ -67,7 +67,7 @@ export function DesktopNav() {
 				</NavigationMenuItem>
 				<NavigationMenuLink asChild className="px-4">
 					<a className="rounded-md p-2 hover:bg-accent" href="#">
-						Pricing
+						Contact
 					</a>
 				</NavigationMenuLink>
 			</NavigationMenuList>

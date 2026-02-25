@@ -1,58 +1,58 @@
-import { SwatchBookIcon, SearchIcon, StarIcon, SmartphoneIcon, LockKeyholeIcon, ShieldBanIcon } from 'lucide-react'
+import { UploadIcon, BrainCircuitIcon, FileTextIcon, DatabaseIcon, FileDownIcon, LockKeyholeIcon } from 'lucide-react'
 
 import Features from '@/components/shadcn-studio/blocks/features-section-01/features-section-01'
 
 const featuresList = [
   {
-    icon: SwatchBookIcon,
-    title: 'User-Friendly Interface',
+    icon: UploadIcon,
+    title: 'Image Upload & Validation',
     description:
-      "Navigate effortlessly with our intuitive design, optimised for all devices. Enjoy a seamless experience whether you're on a computer or mobile.",
+      'Upload rice leaf images easily for instant disease analysis. The system validates image format (JPG, PNG) and file size automatically before processing.',
     cardBorderColor: 'border-primary/40 hover:border-primary',
     avatarTextColor: 'text-primary',
     avatarBgColor: 'bg-primary/10'
   },
   {
-    icon: ShieldBanIcon,
-    title: 'Secure Checkout',
+    icon: BrainCircuitIcon,
+    title: 'AI-Based Disease Detection',
     description:
-      'Enjoy a safe shopping experience with multiple payment options and SSL encryption. Your personal and financial information is always protected.',
+      'A trained AI model analyzes uploaded leaf images, classifies diseases accurately, and provides a confidence score to help you make informed decisions.',
     cardBorderColor: 'border-green-600/40 hover:border-green-600 dark:border-green-400/40 dark:hover:border-green-400',
     avatarTextColor: 'text-green-600 dark:text-green-400',
     avatarBgColor: 'bg-green-600/10 dark:bg-green-400/10'
   },
   {
-    icon: SearchIcon,
-    title: 'Advanced Search',
+    icon: FileTextIcon,
+    title: 'Result Display & Reporting',
     description:
-      'Find products quickly with advanced filters, sorting options, and suggestion. Save time and effortlessly locate exactly what you need with ease.',
+      'View detailed results including disease name, confidence score, description, and recommended preventive measures — all displayed clearly on your dashboard.',
     cardBorderColor: 'border-amber-600/40 hover:border-amber-600 dark:border-amber-400/40 dark:hover:border-amber-400',
     avatarTextColor: 'text-amber-600 dark:text-amber-400',
     avatarBgColor: 'bg-amber-600/10 dark:bg-amber-400/10'
   },
   {
-    icon: StarIcon,
-    title: 'Customer Reviews and Ratings',
+    icon: DatabaseIcon,
+    title: 'Record Storage',
     description:
-      'Make informed decisions with detailed product reviews and ratings from other buyers. Trust the experiences of fellow shoppers to guide choices.',
+      'Every prediction is automatically stored in the database — including the uploaded image, disease name, confidence score, timestamp, and model version used.',
     cardBorderColor: 'border-destructive/40 hover:border-destructive',
     avatarTextColor: 'text-destructive',
     avatarBgColor: 'bg-destructive/10'
   },
   {
-    icon: SmartphoneIcon,
-    title: 'Mobile App Integration',
+    icon: FileDownIcon,
+    title: 'Report Generation',
     description:
-      'Enhance your shopping experience with our mobile app and push notifications. Stay updated on arrivals and exclusive offers directly on phone.',
+      'Download comprehensive disease analysis reports including the leaf image, disease details, confidence score, and preventive measures for your records.',
     cardBorderColor: 'border-sky-600/40 hover:border-sky-600 dark:border-sky-400/40 dark:hover:border-sky-400',
     avatarTextColor: 'text-sky-600 dark:text-sky-400',
     avatarBgColor: 'bg-sky-600/10 dark:bg-sky-400/10'
   },
   {
     icon: LockKeyholeIcon,
-    title: 'Security Features',
+    title: 'Secure Authentication',
     description:
-      'Protect your data with fraud detection and two-factor authentication. Ensure a secure environment for all transactions and account activities.',
+      'Protect your account with secure registration, login, password reset, and profile management. Your data and detection history remain safe and private.',
     cardBorderColor: 'border-primary/40 hover:border-primary',
     avatarTextColor: 'text-primary',
     avatarBgColor: 'bg-primary/10'

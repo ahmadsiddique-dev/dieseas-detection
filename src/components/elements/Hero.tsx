@@ -11,12 +11,12 @@ export const navLinks = [
 		href: "#",
 	},
 	{
-		label: "Pricing",
+		label: "Dashboard",
 		href: "#",
 	},
 	{
-		label: "About",
-		href: "#",
+		label: "FAQs",
+		href: "/faqs",
 	},
 ];
 
@@ -35,7 +35,7 @@ export function Header() {
 					className="rounded-md p-2 hover:bg-muted dark:hover:bg-muted/50"
 					href="#"
 				>
-					<Logo className="h-4" />
+					<Logo className="text-sm" />
 				</a>
 				<div className="hidden items-center gap-2 md:flex">
 					{navLinks.map((link) => (
@@ -46,7 +46,7 @@ export function Header() {
 					<Button size="sm" variant="outline">
 						Sign In
 					</Button>
-					<Button size="sm">Get Started</Button>
+					<Button size="sm">Try Detection</Button>
 				</div>
 				<MobileNav />
 			</nav>

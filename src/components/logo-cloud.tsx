@@ -7,7 +7,7 @@ export function LogoCloud() {
 				{logos.map((logo) => (
 					<img
 						alt={logo.alt}
-						className="pointer-events-none h-4 select-none md:h-5 dark:brightness-0 dark:invert"
+						className="pointer-events-none h-6 select-none md:h-8 dark:brightness-0 dark:invert"
 						height="auto"
 						key={`logo-${logo.alt}`}
 						loading="lazy"
@@ -22,35 +22,35 @@ export function LogoCloud() {
 
 const logos = [
 	{
-		src: "https://storage.efferd.com/logo/nvidia-wordmark.svg",
-		alt: "Nvidia Logo",
+		src: "/logos/fao.svg",
+		alt: "FAO Logo",
 	},
 	{
-		src: "https://storage.efferd.com/logo/supabase-wordmark.svg",
-		alt: "Supabase Logo",
+		src: "/logos/irri.svg",
+		alt: "IRRI Logo",
 	},
 	{
-		src: "https://storage.efferd.com/logo/openai-wordmark.svg",
-		alt: "OpenAI Logo",
+		src: "/logos/usda.svg",
+		alt: "USDA Logo",
 	},
 	{
-		src: "https://storage.efferd.com/logo/turso-wordmark.svg",
-		alt: "Turso Logo",
+		src: "/logos/who.svg",
+		alt: "WHO Logo",
 	},
 	{
-		src: "https://storage.efferd.com/logo/vercel-wordmark.svg",
-		alt: "Vercel Logo",
+		src: "/logos/cgiar.svg",
+		alt: "CGIAR Logo",
 	},
 	{
-		src: "https://storage.efferd.com/logo/github-wordmark.svg",
-		alt: "GitHub Logo",
+		src: "/logos/worldbank.svg",
+		alt: "World Bank Logo",
 	},
 	{
-		src: "https://storage.efferd.com/logo/claude-wordmark.svg",
-		alt: "Claude AI Logo",
+		src: "/logos/unesco.svg",
+		alt: "UNESCO Logo",
 	},
 	{
-		src: "https://storage.efferd.com/logo/clerk-wordmark.svg",
-		alt: "Clerk Logo",
+		src: "/logos/giz.svg",
+		alt: "GIZ Logo",
 	},
 ];
