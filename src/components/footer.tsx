@@ -26,7 +26,6 @@ export function Footer() {
 								<Button
 									asChild
 									key={`social-${item.link}-${index}`}
-									size="icon-sm"
 									variant="outline"
 								>
 									<a href={item.link} target="_blank">

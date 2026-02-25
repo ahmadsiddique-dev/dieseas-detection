@@ -5,6 +5,7 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
+import Link from "next/link";
 
 export function FaqsSection() {
 	return (
@@ -20,9 +21,9 @@ export function FaqsSection() {
 					</p>
 					<p className="text-muted-foreground">
 						{"Can't find what you're looking for? "}
-						<a className="text-primary hover:underline" href="#">
+						<Link className="text-primary hover:underline" href="/contact">
 							Contact Us
-						</a>
+						</Link>
 					</p>
 				</div>
 			</div>

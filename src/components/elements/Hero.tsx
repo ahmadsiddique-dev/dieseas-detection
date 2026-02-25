@@ -7,10 +7,10 @@ import { MobileNav } from "@/components/mobile-nav";
 import Link from 'next/link'
 
 export const navLinks = [
-	{
-		label: "Features",
-		href: "#",
-	},
+	// {
+	// 	label: "Features",
+	// 	href: "#",
+	// },
 	{
 		label: "Contact",
 		href: "/contact",
