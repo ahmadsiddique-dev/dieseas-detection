@@ -16,17 +16,17 @@ export function CallToAction() {
 			<div className="absolute top-0 left-1/2 -z-10 h-full border-l border-dashed" />
 
 			<h2 className="text-center font-semibold text-xl md:text-3xl">
-				Start for Free Today!
+				Protect Your Rice Crops Today!
 			</h2>
 			<p className="text-balance text-center font-medium text-muted-foreground text-sm md:text-base">
-				Begin your 6-day free trial today to fully explore and experience all
-				the features and benefits we offer.
+				Upload a leaf image and get instant AI-powered disease detection with
+				detailed reports and preventive measures — completely free.
 			</p>
 
 			<div className="flex items-center justify-center gap-2">
-				<Button variant="outline">Contact Sales</Button>
+				<Button variant="outline">View FAQs</Button>
 				<Button>
-					Get Started{" "}
+					Try Detection{" "}
 					<ArrowRightIcon data-icon="inline-end" />
 				</Button>
 			</div>

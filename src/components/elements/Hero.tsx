@@ -4,6 +4,7 @@ import { Logo } from "@/components/logo";
 import { useScroll } from "@/hooks/use-scroll";
 import { Button } from "@/components/ui/button";
 import { MobileNav } from "@/components/mobile-nav";
+import Link from 'next/link'
 
 export const navLinks = [
 	{
@@ -11,8 +12,8 @@ export const navLinks = [
 		href: "#",
 	},
 	{
-		label: "Dashboard",
-		href: "#",
+		label: "Contact",
+		href: "/contact",
 	},
 	{
 		label: "FAQs",
@@ -31,16 +32,16 @@ export function Header() {
 			})}
 		>
 			<nav className="mx-auto bg-background flex h-14 w-full max-w-full items-center justify-between px-4">
-				<a
+				<Link
 					className="rounded-md p-2 hover:bg-muted dark:hover:bg-muted/50"
-					href="#"
+					href="/"
 				>
 					<Logo className="text-sm" />
-				</a>
+				</Link>
 				<div className="hidden items-center gap-2 md:flex">
 					{navLinks.map((link) => (
 						<Button asChild key={link.label} size="sm" variant="ghost">
-							<a href={link.href}>{link.label}</a>
+							<Link href={link.href}>{link.label}</Link>
 						</Button>
 					))}
 					<Button size="sm" variant="outline">

@@ -41,25 +41,25 @@ const defaultValues: AboutUsProps['values'] = [
   {
     title: 'Innovation',
     description:
-      'We constantly push boundaries and explore new possibilities to create cutting-edge solutions.',
+      'We leverage cutting-edge AI and deep learning to detect rice leaf diseases with high accuracy.',
     icon: 'Lightbulb',
   },
   {
-    title: 'Collaboration',
+    title: 'Farmer-First',
     description:
-      'We believe in the power of teamwork and diverse perspectives to achieve extraordinary results.',
+      'Every feature is designed with farmers in mind — simple to use, accessible on any device, and available in local contexts.',
     icon: 'Users',
   },
   {
-    title: 'Excellence',
+    title: 'Accuracy',
     description:
-      'We strive for perfection in everything we do, consistently delivering high-quality work.',
+      'Our AI model is trained on thousands of rice leaf images, delivering reliable results you can trust.',
     icon: 'Sparkles',
   },
   {
-    title: 'Impact',
+    title: 'Global Impact',
     description:
-      "We measure our success by the positive difference we make in people's lives and businesses.",
+      'We aim to reduce crop losses worldwide by empowering farmers with early disease detection tools.',
     icon: 'Globe',
   },
 ];
@@ -68,11 +68,11 @@ export default function AboutUs1() {
   const aboutData = {
     title: 'About Us',
     subtitle:
-      'Building the future of web development with beautiful, reusable components.',
+      'Empowering farmers with AI-powered rice leaf disease detection technology.',
     mission:
-      'Our mission is to democratize web development by providing high-quality, customizable components that help developers build stunning websites quickly and efficiently.',
+      'Our mission is to help rice farmers around the world detect crop diseases early using AI, enabling timely treatment, reducing losses, and improving food security.',
     vision:
-      'We envision a world where creating beautiful websites is accessible to everyone, regardless of their design or development experience.',
+      'We envision a future where every farmer has access to intelligent tools that protect their crops, improve yields, and support sustainable agriculture.',
     values: defaultValues,
     className: 'relative overflow-hidden py-20',
   };

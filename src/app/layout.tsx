@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Source_Serif_4, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { Header } from "@/components/elements/Hero";
+import { Footer } from "@/components/footer";
 
 const fontSans = Inter({
   subsets: ["latin"],
@@ -30,7 +32,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${fontSans.variable} ${fontSerif.variable} ${fontMono.variable} dark antialiased`}>
+        <Header />
         {children}
+        <div className="mt-20">
+        <Footer />
+      </div>
       </body>
     </html>
   );

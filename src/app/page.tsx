@@ -77,7 +77,6 @@ const page = () => {
   ];
   return (
     <div>
-      <Header />
       <div className="mask-b-from-30% relative min-h-[50vh]  sm:min-h-[70vh] flex items-end" id="header">
         {/* Dark gradient overlay for text readability */}
         <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-black/30 z-10" />
@@ -157,9 +156,7 @@ const page = () => {
         </div>
         <CallToAction />
       </div>
-      <div className="mt-20">
-        <Footer />
-      </div>
+      
     </div>
   );
 };
