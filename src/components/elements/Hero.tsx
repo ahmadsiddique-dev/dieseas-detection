@@ -44,10 +44,8 @@ export function Header() {
 							<Link href={link.href}>{link.label}</Link>
 						</Button>
 					))}
-					<Button size="sm" variant="outline">
-						Sign In
-					</Button>
-					<Button size="sm">Try Detection</Button>
+					<Link href="/signin"><Button variant="outline" size="sm">Sign In</Button></Link>
+					<Link href="/signup"><Button size="sm">Try Detection</Button></Link>
 				</div>
 				<MobileNav />
 			</nav>

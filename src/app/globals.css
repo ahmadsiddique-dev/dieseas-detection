@@ -183,3 +183,10 @@
   background-position: center;
   opacity: 0.9;
 }
+
+
+::selection {
+  background-color: rgb(245, 176, 47);
+  color: black;
+}
+
