@@ -23,7 +23,7 @@ const Signup = () => {
   } = useForm<SingInProps>();
   const onSubmit = (data: SingInProps) => {
     try {
-      let response = axios.post("/api/auth/signin", data );
+      let response = axios.post("/api/auth/signin", data);
 
       response.then((res) => {
         if (res.data.success) {
@@ -72,7 +72,7 @@ const Signup = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
                 >
-                  The make money app
+                  Protect Your Crops with AI
                 </motion.h1>
               </div>
             </motion.div>
@@ -108,8 +108,8 @@ const Signup = () => {
                         </span>
                       </div>
                       <p className="text-muted-foreground text-sm">
-                        Create an account or log in to discover Purgions and
-                        find ways to make money.
+                        Sign in to access AI-powered rice leaf disease
+                        detection and protect your harvest.
                       </p>
                     </motion.div>
 

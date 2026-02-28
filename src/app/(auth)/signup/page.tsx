@@ -38,7 +38,7 @@ const Signup = () => {
 
   const onSubmit = (data: SignupProps) => {
     delete data.confirmPassword;
-    
+
     try {
       const response = axios.post("/api/auth/signup", data, {
         withCredentials: true,
@@ -51,7 +51,7 @@ const Signup = () => {
         }
       });
     } catch (error) {
-      toast.error("An error occurred while signing up user"); 
+      toast.error("An error occurred while signing up user");
     }
   };
 
@@ -88,7 +88,7 @@ const Signup = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
                 >
-                  The make money app
+                  Protect Your Crops with AI
                 </motion.h1>
               </div>
             </motion.div>
@@ -118,8 +118,8 @@ const Signup = () => {
                         </span>
                       </div>
                       <p className="text-muted-foreground text-sm">
-                        Create an account or log in to discover Purgions and
-                        find ways to make money.
+                        Create an account to access AI-powered rice leaf
+                        disease detection and protect your harvest.
                       </p>
                     </motion.div>
 
