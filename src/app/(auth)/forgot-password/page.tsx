@@ -16,6 +16,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, MailX, ShieldQuestion, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import axios from "axios";
+import { toast } from "sonner";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -26,43 +27,63 @@ interface NotFoundResponse {
 }
 
 interface SecurityQuestionResponse {
-  exists: true;
+  exists: boolean | undefined;
   question: string;
 }
 
 type CheckEmailResponse = NotFoundResponse | SecurityQuestionResponse;
 
-// ─── Simulated API call – replace with your real fetch ───────────────────────
-
 async function checkEmailApi(email: string): Promise<CheckEmailResponse> {
   try {
-    const response = await axios.post("/api/auth/forgot-password/check-email", { email });
-     if (response.data.success) {
-        
-     }
+    const response = await axios.post("/api/auth/forgot-password/check-email", {
+      email,
+    });
+
+    if (response.data.success) {
+      toast.success(response.data.message);
+
+      return {
+        exists: true,
+        question: response.data.data.securityQuestion,
+      };
+    } else {
+      toast.error(response.data.message);
+
+      return {
+        exists: false,
+        question: response.data.message,
+      };
+    }
   } catch (error) {
-    
-  }
+    toast.error("Failed to check email.");
 
-  await new Promise((r) => setTimeout(r, 1200)); 
-
-  if (email.toLowerCase().endsWith("@exists.com")) {
-    return { exists: true, question: "What was the name of your first pet?" };
+    return {
+      exists: false,
+      question: "Something went wrong",
+    };
   }
-  return { exists: false };
 }
 
 async function submitAnswerApi(
   email: string,
-  answer: string
+  answer: string,
 ): Promise<{ success: boolean }> {
-  // TODO: replace with your actual API call
-  // const res = await fetch("/api/forgot-password/verify", { ... });
-  await new Promise((r) => setTimeout(r, 1000));
-  return { success: true };
-}
+  try {
+    const response = await axios.post(
+      "/api/auth/forgot-password/submit-answer",
+      { email, answer },
+    );
 
-// ─── Page ─────────────────────────────────────────────────────────────────────
+    if (response.data.success) {
+      toast.success(response.data.message);
+    } else {
+      toast.error(response.data.message);
+    }
+    return { success: response.data.success };
+  } catch (error) {
+    return { success: false };
+  }
+}
 
 export default function ForgotPasswordPage() {
   const [stage, setStage] = useState<Stage>("email");
@@ -105,7 +126,9 @@ export default function ForgotPasswordPage() {
       if (result.success) {
         setStage("success");
       } else {
-        setAnswerError("That answer doesn't match our records. Please try again.");
+        setAnswerError(
+          "That answer doesn't match our records. Please try again.",
+        );
       }
     } catch {
       setAnswerError("Something went wrong. Please try again.");
@@ -119,7 +142,6 @@ export default function ForgotPasswordPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted/40 px-4">
       <div className="w-full max-w-md">
-
         {/* ── Stage: Enter Email ── */}
         {stage === "email" && (
           <Card className="shadow-lg">
@@ -192,7 +214,10 @@ export default function ForgotPasswordPage() {
             </CardHeader>
 
             <CardContent>
-              <Alert variant="destructive" className="bg-destructive/5 border-destructive/20">
+              <Alert
+                variant="destructive"
+                className="bg-destructive/5 border-destructive/20"
+              >
                 <AlertDescription>
                   Double-check the email address or try a different one. If you
                   believe this is a mistake, please contact support.
@@ -330,7 +355,6 @@ export default function ForgotPasswordPage() {
             </CardFooter>
           </Card>
         )}
-
       </div>
     </div>
   );
