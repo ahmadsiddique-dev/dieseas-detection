@@ -8,6 +8,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { toast } from "sonner";
 
 type SingInProps = {
   email: string;
@@ -22,11 +23,18 @@ const Signup = () => {
   } = useForm<SingInProps>();
   const onSubmit = (data: SingInProps) => {
     try {
-      axios.post("/api/auth/signin",{data});
+      let response = axios.post("/api/auth/signin", data );
 
-      
+      response.then((res) => {
+        if (res.data.success) {
+          toast.success(res.data.message);
+          window.location.href = "/dashboard";
+        } else {
+          toast.error(res.data.message);
+        }
+      });
     } catch (error) {
-      console.log('error :>> ', error);
+      toast.error("An error occurred while signing in. Please try again.");
     }
   };
 
@@ -112,7 +120,6 @@ const Signup = () => {
                       action=""
                     >
                       <motion.div
-                        
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{
@@ -131,32 +138,54 @@ const Signup = () => {
                           type="email"
                         />
                         {errors.email && errors.email.type === "required" && (
-                          <span className="text-red-500 text-sm">This is required</span>
+                          <span className="text-red-500 text-sm">
+                            This is required
+                          </span>
                         )}
                         {errors.email && errors.email.type === "maxLength" && (
-                          <span className="text-red-500 text-sm">Max length exceeded</span>
+                          <span className="text-red-500 text-sm">
+                            Max length exceeded
+                          </span>
                         )}
                       </motion.div>
 
                       <div>
                         <Label htmlFor="password">Password</Label>
                         <Input
-                         {...register("password", { required: true, maxLength: 50, minLength: 4 })}
+                          {...register("password", {
+                            required: true,
+                            maxLength: 50,
+                            minLength: 4,
+                          })}
                           id="password"
                           type="password"
                           className="border-border border"
                         />
-                        {errors.password && errors.password.type === "required" && (
-                          <span className="text-red-500 text-sm">This is required</span>
-                        )}
-                        {errors.password && errors.password.type === "maxLength" && (
-                          <span className="text-red-500 text-sm">Max length exceeded</span>
-                        )}
-                        {errors.password && errors.password.type === "minLength" && (
-                          <span className="text-red-500 text-sm">Min length is 4 characters</span>
-                        )}
+                        {errors.password &&
+                          errors.password.type === "required" && (
+                            <span className="text-red-500 text-sm">
+                              This is required
+                            </span>
+                          )}
+                        {errors.password &&
+                          errors.password.type === "maxLength" && (
+                            <span className="text-red-500 text-sm">
+                              Max length exceeded
+                            </span>
+                          )}
+                        {errors.password &&
+                          errors.password.type === "minLength" && (
+                            <span className="text-red-500 text-sm">
+                              Min length is 4 characters
+                            </span>
+                          )}
                       </div>
 
+                      <div className="flex items-center justify-end">
+                        <Link href="/forgot-password" className="text-sm  text-primary hover:underline">
+                          Forgot password?
+                        </Link>
+                      </div>
                       <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
