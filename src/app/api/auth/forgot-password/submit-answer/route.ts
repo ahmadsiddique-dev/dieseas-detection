@@ -24,7 +24,7 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!user.securityAnswer || user.securityAnswer !== answer) {
+    if (!user.securityAnswer || user.securityAnswer.toLowerCase().trim() !== answer.toLowerCase().trim()) {
       return Response.json(
         { message: "Incorrect answer", success: false },
         { status: 400 },

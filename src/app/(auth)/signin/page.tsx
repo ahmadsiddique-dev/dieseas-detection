@@ -21,18 +21,16 @@ const Signup = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<SingInProps>();
-  const onSubmit = (data: SingInProps) => {
+  const onSubmit = async (data: SingInProps) => {
     try {
-      let response = axios.post("/api/auth/signin", data);
+      const res = await axios.post("/api/auth/signin", data);
 
-      response.then((res) => {
-        if (res.data.success) {
-          toast.success(res.data.message);
-          window.location.href = "/dashboard";
-        } else {
-          toast.error(res.data.message);
-        }
-      });
+      if (res.data.success) {
+        toast.success(res.data.message);
+        window.location.href = "/dashboard";
+      } else {
+        toast.error(res.data.message);
+      }
     } catch (error) {
       toast.error("An error occurred while signing in. Please try again.");
     }

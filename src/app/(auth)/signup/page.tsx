@@ -36,20 +36,20 @@ const Signup = () => {
     formState: { errors },
   } = useForm<SignupProps>();
 
-  const onSubmit = (data: SignupProps) => {
+  const onSubmit = async (data: SignupProps) => {
     delete data.confirmPassword;
 
     try {
-      const response = axios.post("/api/auth/signup", data, {
+      const res = await axios.post("/api/auth/signup", data, {
         withCredentials: true,
       });
-      response.then((res) => {
-        if (res?.data?.success) {
-          toast.success("User signed up successfully");
-        } else {
-          toast.error(res?.data?.message || "Failed to sign up user");
-        }
-      });
+
+      if (res?.data?.success) {
+        toast.success("User signed up successfully");
+        window.location.href = "/dashboard";
+      } else {
+        toast.error(res?.data?.message || "Failed to sign up user");
+      }
     } catch (error) {
       toast.error("An error occurred while signing up user");
     }
