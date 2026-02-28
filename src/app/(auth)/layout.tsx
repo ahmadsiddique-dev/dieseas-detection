@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Source_Serif_4, JetBrains_Mono } from "next/font/google";
 import "../globals.css";
+import { Toaster } from "@/components/ui/sonner";
 import { Header } from "@/components/elements/Hero";
 import { Footer } from "@/components/footer";
 import Navbar from "@/components/auth/Navbar";
@@ -33,6 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${fontSans.variable} ${fontSerif.variable} ${fontMono.variable} dark antialiased`}>
+        <Toaster richColors position="top-right" />
         {children}
       </body>
     </html>
