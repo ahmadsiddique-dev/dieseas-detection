@@ -15,6 +15,7 @@ import {
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, MailX, ShieldQuestion, ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import axios from "axios";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -34,17 +35,17 @@ type CheckEmailResponse = NotFoundResponse | SecurityQuestionResponse;
 // ─── Simulated API call – replace with your real fetch ───────────────────────
 
 async function checkEmailApi(email: string): Promise<CheckEmailResponse> {
-  // TODO: replace with your actual API call
-  // const res = await fetch("/api/forgot-password/check", {
-  //   method: "POST",
-  //   body: JSON.stringify({ email }),
-  //   headers: { "Content-Type": "application/json" },
-  // });
-  // return res.json();
+  try {
+    const response = await axios.post("/api/auth/forgot-password/check-email", { email });
+     if (response.data.success) {
+        
+     }
+  } catch (error) {
+    
+  }
 
-  await new Promise((r) => setTimeout(r, 1200)); // simulate network delay
+  await new Promise((r) => setTimeout(r, 1200)); 
 
-  // Demo logic: emails ending in @exists.com simulate a found account
   if (email.toLowerCase().endsWith("@exists.com")) {
     return { exists: true, question: "What was the name of your first pet?" };
   }

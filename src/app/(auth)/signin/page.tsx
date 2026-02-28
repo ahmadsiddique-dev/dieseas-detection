@@ -44,8 +44,8 @@ const Signup = () => {
 
       <div>
         <div className="rose-gradient bg-background relative min-h-screen overflow-hidden">
-          <div className="from-background absolute -top-10 left-0 h-1/2 w-full rounded-b-full bg-gradient-to-b to-transparent blur"></div>
-          <div className="from-primary/80 absolute -top-64 left-0 h-1/2 w-full rounded-full bg-gradient-to-b to-transparent blur-3xl"></div>
+          <div className="from-background absolute -top-10 left-0 h-1/2 w-full rounded-b-full bg-linear-to-b to-transparent blur"></div>
+          <div className="from-primary/80 absolute -top-64 left-0 h-1/2 w-full rounded-full bg-linear-to-b to-transparent blur-3xl"></div>
           <div className="relative z-10 grid min-h-screen grid-cols-1 md:grid-cols-2">
             <motion.div
               className="hidden flex-1 items-center justify-center space-y-8 p-8 text-center md:flex"
@@ -61,7 +61,7 @@ const Signup = () => {
                 >
                   <p
                     id="crop-guard"
-                    className="mx-auto h-auto w-full md:w-90 text-5xl bg font-extrabold italic  bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent"
+                    className="mx-auto h-auto w-full md:w-90 text-5xl bg font-extrabold italic  bg-linear-to-r from-orange-400 to-red-400 bg-clip-text text-transparent"
                   >
                     CROP Guard
                   </p>
