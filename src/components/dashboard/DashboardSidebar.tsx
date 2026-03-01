@@ -1,7 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import {
     LayoutDashboard,
@@ -29,12 +30,11 @@ interface SidebarProps {
     onNavClick?: () => void;
 }
 
-const navItems = [
-    
+const defaultNavItems = [
     {
-        label: "History",
-        href: "/dashboard/history",
-        icon: History,
+        label: "New Scan",
+        href: "/dashboard/desktop",
+        icon: ScanSearch,
     }
 ];
 
@@ -64,6 +64,27 @@ export default function DashboardSidebar({
     onNavClick,
 }: SidebarProps) {
     const pathname = usePathname();
+    const searchParams = useSearchParams();
+    const currentScanId = searchParams?.get("scan");
+
+    const [scans, setScans] = useState<any[]>([]);
+    const [isLoadingHistory, setIsLoadingHistory] = useState(true);
+
+    useEffect(() => {
+        const fetchHistory = async () => {
+            try {
+                const res = await axios.get("/api/scan");
+                if (res.data.success) {
+                    setScans(res.data.scans);
+                }
+            } catch (error) {
+                console.error("Failed to load history", error);
+            } finally {
+                setIsLoadingHistory(false);
+            }
+        };
+        fetchHistory();
+    }, []);
 
     const handleLogout = async () => {
         try {
@@ -104,11 +125,14 @@ export default function DashboardSidebar({
                         initial="hidden"
                         animate="visible"
                     >
-                        {navItems.map((item) => {
-                            const isActive =
-                                pathname === item.href ||
-                                (item.href !== "/dashboard" &&
-                                    pathname.startsWith(item.href));
+                        {defaultNavItems.map((item) => {
+                            // Link to dashboard base URL if New Scan
+                            const dynamicHref = item.label === "New Scan" && userName
+                                ? `/dashboard/${userName.toLowerCase()}`
+                                : item.href;
+
+                            // It's active if we are on the dashboard and NOT viewing a historic scan
+                            const isActive = pathname.startsWith("/dashboard") && !currentScanId && item.label === "New Scan";
                             const Icon = item.icon;
 
                             return (
@@ -116,7 +140,7 @@ export default function DashboardSidebar({
                                     <Tooltip>
                                         <TooltipTrigger asChild>
                                             <Link
-                                                href={item.href}
+                                                href={dynamicHref}
                                                 onClick={onNavClick}
                                                 className={`
                           group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium
@@ -155,6 +179,66 @@ export default function DashboardSidebar({
                                 </motion.div>
                             );
                         })}
+
+                        {/* ── Recent Scans Section ── */}
+                        <div className="mt-6 mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-sidebar-foreground/50 flex flex-col gap-2">
+                            Recent Scans
+                        </div>
+
+                        {isLoadingHistory ? (
+                            <div className="px-3 py-2 text-sm text-sidebar-foreground/50 animate-pulse">Loading history...</div>
+                        ) : scans.length === 0 ? (
+                            <div className="px-3 py-2 text-sm text-sidebar-foreground/50 italic">No recent scans</div>
+                        ) : (
+                            <div className="flex flex-col gap-1">
+                                {scans.map((scan) => {
+                                    const isActive = currentScanId === scan._id;
+                                    const isHealthy = scan.result.isHealthy;
+
+                                    // Use the base dashboard path for user
+                                    const scanHref = userName
+                                        ? `/dashboard/${userName.toLowerCase()}?scan=${scan._id}`
+                                        : `/dashboard/desktop?scan=${scan._id}`;
+
+                                    return (
+                                        <motion.div key={scan._id} variants={itemVariants}>
+                                            <Tooltip>
+                                                <TooltipTrigger asChild>
+                                                    <Link
+                                                        href={scanHref}
+                                                        onClick={onNavClick}
+                                                        scroll={false}
+                                                        className={`
+                                                            group flex mx-1 items-center gap-3 rounded-lg px-2 py-2 text-sm
+                                                            transition-all duration-200 border border-transparent
+                                                            ${isActive
+                                                                ? "bg-sidebar-accent text-sidebar-accent-foreground shadow-sm font-medium border-sidebar-border/50"
+                                                                : "text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground"
+                                                            }
+                                                        `}
+                                                    >
+                                                        <div className="h-8 w-8 shrink-0 overflow-hidden rounded bg-sidebar-border/50">
+                                                            <img src={scan.imageUrl} alt="scan" className="h-full w-full object-cover" />
+                                                        </div>
+                                                        <div className="flex-1 min-w-0 flex flex-col justify-center">
+                                                            <p className={`truncate text-xs font-semibold ${isHealthy ? 'text-emerald-500' : 'text-orange-400'}`}>
+                                                                {isHealthy ? "Healthy" : scan.result.diseaseName}
+                                                            </p>
+                                                            <p className="truncate text-[10px] opacity-60">
+                                                                {new Date(scan.createdAt).toLocaleDateString()}
+                                                            </p>
+                                                        </div>
+                                                    </Link>
+                                                </TooltipTrigger>
+                                                <TooltipContent side="right" className="md:hidden">
+                                                    {isHealthy ? "Healthy" : scan.result.diseaseName}
+                                                </TooltipContent>
+                                            </Tooltip>
+                                        </motion.div>
+                                    );
+                                })}
+                            </div>
+                        )}
                     </motion.nav>
                 </ScrollArea>
 
