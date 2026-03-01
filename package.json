@@ -24,6 +24,8 @@
     "clsx": "^2.1.1",
     "cobe": "^0.6.5",
     "framer-motion": "^12.34.3",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.2.0",
     "lucide-react": "^0.575.0",
     "mongoose": "^9.2.3",
     "motion": "^12.34.3",
