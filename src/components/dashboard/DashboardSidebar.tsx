@@ -11,6 +11,7 @@ import {
     Settings,
     LogOut,
     Leaf,
+    Download,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -23,6 +24,9 @@ import {
 } from "@/components/ui/tooltip";
 import axios from "axios";
 import { toast } from "sonner";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import PremiumReportTemplate from "@/components/dashboard/PremiumReportTemplate";
 
 interface SidebarProps {
     userName: string;
@@ -69,6 +73,8 @@ export default function DashboardSidebar({
 
     const [scans, setScans] = useState<any[]>([]);
     const [isLoadingHistory, setIsLoadingHistory] = useState(true);
+    const [downloadingScanData, setDownloadingScanData] = useState<any>(null);
+    const [isGeneratingMap, setIsGeneratingMap] = useState<Record<string, boolean>>({});
 
     useEffect(() => {
         const fetchHistory = async () => {
@@ -103,6 +109,87 @@ export default function DashboardSidebar({
         } catch (error) {
             toast.error("Failed to log out. Please try again.");
             window.location.href = "/signin";
+        }
+    };
+
+    const handleDownloadReport = async (scan: any, e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (isGeneratingMap[scan._id]) return;
+
+        let originalBodyBg = '';
+        let originalHtmlBg = '';
+
+        try {
+            setIsGeneratingMap(prev => ({ ...prev, [scan._id]: true }));
+            toast.info("Generating your report. Please hold on...");
+
+            // Fetch full scan details for the report
+            const res = await axios.get(`/api/scan/${scan._id}`);
+            if (!res.data.success || !res.data.scan) {
+                throw new Error("Failed to load full scan data");
+            }
+
+            setDownloadingScanData(res.data.scan);
+
+            // Small delay to allow react to render the hidden component
+            await new Promise(resolve => setTimeout(resolve, 500));
+
+            const reportElement = document.getElementById("hidden-sidebar-report");
+            if (!reportElement) {
+                throw new Error("Could not find the report element");
+            }
+
+            // 🛑 ULTIMATE FAILSAFE: html2canvas recursively checks the root body/html backgrounds to composite transparencies.
+            // If globals.css applied an oklch to the root, it crashes here regardless of our wrapper.
+            // We temporarily force the root to transparent before cloning, then restore.
+            originalBodyBg = document.body.style.backgroundColor;
+            originalHtmlBg = document.documentElement.style.backgroundColor;
+            document.body.style.setProperty('background-color', 'transparent', 'important');
+            document.documentElement.style.setProperty('background-color', 'transparent', 'important');
+
+            const canvas = await html2canvas(reportElement, {
+                scale: 2,
+                useCORS: true,
+                logging: false,
+                backgroundColor: "#ffffff",
+                onclone: (clonedDoc) => {
+                    const clonedReport = clonedDoc.getElementById("hidden-sidebar-report");
+                    if (clonedReport) {
+                        // html2canvas fails hard on Tailwind oklch/lab variables attached to SVGs
+                        // 1. Force hardcoded color formats on all cloned elements
+                        const allElements = clonedReport.querySelectorAll('*');
+                        allElements.forEach((el) => {
+                            if (el instanceof HTMLElement || el instanceof SVGElement) {
+                                el.style.setProperty('border-color', 'transparent', 'important');
+                                el.style.setProperty('outline-color', 'transparent', 'important');
+                            }
+                        });
+                    }
+                }
+            });
+
+            const imgData = canvas.toDataURL("image/jpeg", 1.0);
+            const pdf = new jsPDF("p", "mm", "a4");
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+            // We explicitly designed a 1-page layout, so we only add the image once,
+            // completely avoiding the rounding error that caused a blank 2nd page.
+            pdf.addImage(imgData, "JPEG", 0, 0, pdfWidth, pdfHeight);
+
+            const reportName = `CropGuard_Report_${new Date(scan.createdAt).toLocaleDateString().replace(/\//g, "-")}.pdf`;
+            pdf.save(reportName);
+            toast.success("Report downloaded successfully!");
+        } catch (error) {
+            console.error("PDF generation failed:", error);
+            toast.error("Failed to generate the report. Please try again.");
+        } finally {
+            document.body.style.backgroundColor = originalBodyBg;
+            document.documentElement.style.backgroundColor = originalHtmlBg;
+            setIsGeneratingMap(prev => ({ ...prev, [scan._id]: false }));
+            setDownloadingScanData(null);
         }
     };
 
@@ -237,6 +324,18 @@ export default function DashboardSidebar({
                                                                 {new Date(scan.createdAt).toLocaleDateString()}
                                                             </p>
                                                         </div>
+                                                        <button
+                                                            onClick={(e) => handleDownloadReport(scan, e)}
+                                                            disabled={isGeneratingMap[scan._id]}
+                                                            className="opacity-0 group-hover:opacity-100 transition-opacity p-1.5 hover:bg-black/10 dark:hover:bg-white/10 rounded-md text-sidebar-foreground/70 hover:text-primary z-10 shrink-0 disabled:opacity-50"
+                                                            title="Download Premium Report"
+                                                        >
+                                                            {isGeneratingMap[scan._id] ? (
+                                                                <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                                                            ) : (
+                                                                <Download className="h-4 w-4" />
+                                                            )}
+                                                        </button>
                                                     </Link>
                                                 </TooltipTrigger>
                                                 <TooltipContent side="right" className="md:hidden">
@@ -283,6 +382,16 @@ export default function DashboardSidebar({
                         <TooltipContent side="right">Sign out</TooltipContent>
                     </Tooltip>
                 </motion.div>
+            </div>
+
+            {/* Hidden Report Container for PDF Generation */}
+            <div className="absolute overflow-hidden h-0 w-0 opacity-0 pointer-events-none -z-50">
+                {downloadingScanData && (
+                    <PremiumReportTemplate
+                        scanData={downloadingScanData}
+                        elementId="hidden-sidebar-report"
+                    />
+                )}
             </div>
         </TooltipProvider>
     );
