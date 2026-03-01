@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 
 // Hardcoded admin credentials for the isolated dashboard
 const ADMIN_ID = process.env.ADMIN_ID || "admin";
-const ADMIN_SECRET = process.env.ADMIN_SECRET || "cropguard2026";
+const ADMIN_SECRET = process.env.ADMIN_SECRET || "cropguard2026" || "admin123" || "ahmad" || "rouf" || "admin";
 
 export async function loginAdmin(formData: FormData) {
     const id = formData.get("id");
