@@ -3,7 +3,6 @@ import { cn } from "@/lib/utils";
 import { Logo } from "@/components/logo";
 import { useScroll } from "@/hooks/use-scroll";
 import { Button } from "@/components/ui/button";
-import { MobileNav } from "@/components/mobile-nav";
 import Link from 'next/link'
 
 export const navLinks = [
@@ -38,16 +37,15 @@ export function Header() {
 				>
 					<Logo className="text-sm" />
 				</Link>
-				<div className="hidden items-center gap-2 md:flex">
+				<div className="flex items-center gap-2">
 					{navLinks.map((link) => (
-						<Button asChild key={link.label} size="sm" variant="ghost">
+						<Button asChild key={link.label} size="sm" variant="ghost" className="hidden sm:inline-flex">
 							<Link href={link.href}>{link.label}</Link>
 						</Button>
 					))}
-					<Link href="/signin"><Button variant="outline" size="sm">Sign In</Button></Link>
-					<Link href="/signup"><Button size="sm">Try Detection</Button></Link>
+					<Link href="/signin"><Button variant="outline" size="sm" className="px-2 sm:px-3 text-xs sm:text-sm">Sign In</Button></Link>
+					<Link href="/signup"><Button size="sm" className="px-2 sm:px-3 text-xs sm:text-sm">Try Detection</Button></Link>
 				</div>
-				<MobileNav />
 			</nav>
 		</header>
 	);
