@@ -327,7 +327,8 @@ export default function DashboardSidebar({
                                                         <button
                                                             onClick={(e) => handleDownloadReport(scan, e)}
                                                             disabled={isGeneratingMap[scan._id]}
-                                                            className="opacity-0 group-hover:opacity-100 transition-opacity p-1.5 hover:bg-black/10 dark:hover:bg-white/10 rounded-md text-sidebar-foreground/70 hover:text-primary z-10 shrink-0 disabled:opacity-50"
+                                                            className="opacity-0 group-hover:opacity-100 transition-opacity p-1.5 bg-black/10 dark:bg-white/10 rounded-md text-sidebar-foreground/70
+                                                            text-primary z-10 shrink-0 disabled:opacity-50"
                                                             title="Download Premium Report"
                                                         >
                                                             {isGeneratingMap[scan._id] ? (
@@ -343,7 +344,7 @@ export default function DashboardSidebar({
                                                 </TooltipContent>
                                             </Tooltip>
                                         </div>
-                                    );
+                                     );
                                 })}
                             </div>
                         )}
