@@ -6,28 +6,43 @@ import { Button } from "@/components/ui/button";
 
 // A predefined pool of realistic looking serverless events
 const logTemplates = [
-    "[INFO] Edge function booted in region iad1 (us-east)",
-    "[INFO] Cache HIT for /api/predictions?userId=anon",
-    "[WARN] Execution time exceeded 800ms for routine: cropguard-infer",
-    "[INFO] Successful connection to MongoDB Cluster Atlas-xyz",
-    "[INFO] Request ID {reqId} processed smoothly",
-    "[ERROR] Non-fatal: Image payload too large. Falling back to compression.",
-    "[INFO] Garbage collection triggered on worker node",
-    "[INFO] Serving cached inference block to region lhr1 (eu-west)",
-    "[INFO] Vercel Analytics ping successful",
+    "[INFO] Edge Function booted in region iad1 (us-east)\n[INFO] Runtime: Edge (V8 isolate)\n[INFO] Environment: Production",
+    "[INFO] Cold start detected — initializing dependencies...\n[INFO] Connecting to MongoDB Cluster Atlas-cropguard...\n[INFO] MongoDB connection established (latency: 378ms)",
+    "[INFO] Incoming request: POST /api/predict\n[INFO] Request ID: req_{reqId}\n[INFO] User: anon | IP: 39.xxx.xxx.xxx | Region: lhr1",
+    "[INFO] Validating image payload...\n[WARN] Image payload size: 6.3MB exceeds threshold (5MB)\n[INFO] Applying automatic compression (quality=75%)\n[INFO] Compressed image size: 2.8MB",
+    "[INFO] Routing inference job to routine: cropguard-infer\n[INFO] Model version: v2.3.4\n[WARN] Execution time exceeded 800ms for routine: cropguard-infer\n[INFO] Inference completed (latency: 793ms)",
+    "[INFO] Prediction result:\n{\n  \"disease\": \"Leaf Blight\",\n  \"confidence\": 0.93,\n  \"recommendation\": \"Apply copper-based fungicide within 48 hours\"\n}",
+    "[INFO] Storing prediction record in database...\n[INFO] Database write successful (writeTime: 68ms)",
+    "[INFO] Caching response for user anon (TTL: 3600s)\n[INFO] Response served successfully (status: 200)",
+    "[INFO] Cache HIT for /api/predictions?userId=anon\n[INFO] Serving cached inference block to region lhr1 (eu-west)\n[INFO] Response time: 34ms",
+    "[ERROR] Non-fatal: Invalid image format detected\n[INFO] Supported formats: jpg, png, webp\n[INFO] Request rejected (status: 415 Unsupported Media Type)",
+    "[INFO] Garbage collection triggered on worker node\n[INFO] Memory reclaimed: 18.4MB\n[INFO] Active isolates: 4",
+    "[INFO] Rate limit check passed for IP: 39.xxx.xxx.xxx\n[INFO] Request quota remaining: 92/100",
+    "[WARN] Spike detected in inference latency (avg: 1.2s)\n[INFO] Scaling edge workers dynamically...",
+    "[INFO] Background cron triggered: cleanup-expired-cache\n[INFO] 43 stale cache entries removed",
+    "[INFO] Vercel Analytics ping successful\n[INFO] Core Web Vitals: LCP=1.3s | FID=18ms | CLS=0.02",
+    "[SECURITY] Suspicious pattern detected in query params\n[INFO] Sanitizing input...\n[INFO] Threat neutralized (SQL injection attempt blocked)",
+    "[INFO] Health Check: OK\n[INFO] Uptime: {uptime}h {uptimeM}m\n[INFO] Error rate: 0.4%"
 ];
 
 export default function SystemPage() {
     const [cpu, setCpu] = useState(14.2);
     const [memory, setMemory] = useState(1.2);
     const [network, setNetwork] = useState(45);
-    const [logs, setLogs] = useState([
-        "[" + new Date().toLocaleTimeString() + "] INFO: Initializing CropGuard distributed edge network...",
-        "[" + new Date().toLocaleTimeString() + "] INFO: Establishing secure connection to primary datastore...",
-    ]);
+    const [logs, setLogs] = useState<string[]>([]);
     const [isRestarting, setIsRestarting] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
 
     const logsEndRef = useRef<HTMLDivElement>(null);
+
+    // Hydration fix & Initial Logs
+    useEffect(() => {
+        setIsMounted(true);
+        setLogs([
+            `[${new Date().toLocaleTimeString()}] [INFO] Initializing CropGuard distributed edge network...`,
+            `[${new Date().toLocaleTimeString()}] [INFO] Establishing secure connection to primary datastore...`,
+        ]);
+    }, []);
 
     // Auto-scroll terminal
     useEffect(() => {
@@ -39,19 +54,16 @@ export default function SystemPage() {
     // Simulate real-time metrics jumping around naturally
     useEffect(() => {
         const interval = setInterval(() => {
-            // CPU fluctuates between 5% and 45% normally
             setCpu(prev => {
                 const change = (Math.random() * 4) - 2;
                 return Math.max(5.1, Math.min(65.5, prev + change));
             });
 
-            // Memory fluctuates very slightly
             setMemory(prev => {
                 const change = (Math.random() * 0.1) - 0.05;
                 return Math.max(0.8, Math.min(2.5, prev + change));
             });
 
-            // Network traffic spikes and dips
             setNetwork(prev => {
                 const change = (Math.random() * 20) - 10;
                 return Math.max(12, Math.min(150, prev + change));
@@ -63,20 +75,31 @@ export default function SystemPage() {
 
     // Randomly insert terminal logs
     useEffect(() => {
+        if (!isMounted) return;
+
         const logInterval = setInterval(() => {
-            if (isRestarting) return; // Pause logs if restarting
+            if (isRestarting) return;
 
             const template = logTemplates[Math.floor(Math.random() * logTemplates.length)];
-            const newLog = `[${new Date().toLocaleTimeString()}] ${template.replace('{reqId}', Math.random().toString(36).substring(7))}`;
+            let newLogBody = template.replace('{reqId}', Math.random().toString(36).substring(7));
+            newLogBody = newLogBody.replace('{uptime}', Math.floor(Math.random() * 24).toString());
+            newLogBody = newLogBody.replace('{uptimeM}', Math.floor(Math.random() * 60).toString());
+
+            const timestamp = new Date().toLocaleTimeString();
+            const logLines = newLogBody.split('\n').map(line =>
+                line.startsWith('{') || line.startsWith('}') || line.startsWith('  ')
+                    ? line
+                    : `[${timestamp}] ${line}`
+            );
 
             setLogs(prev => {
-                const newLogs = [...prev, newLog];
+                const newLogs = [...prev, ...logLines];
                 return newLogs.slice(-50); // Keep last 50 logs only
             });
-        }, Math.random() * 3000 + 2000); // Between 2-5 seconds
+        }, Math.random() * 3000 + 2000);
 
         return () => clearInterval(logInterval);
-    }, [isRestarting]);
+    }, [isRestarting, isMounted]);
 
     const handleRestart = () => {
         if (isRestarting) return;
@@ -99,7 +122,7 @@ export default function SystemPage() {
                 <div>
                     <h1 className="text-2xl font-bold tracking-tight mb-1 flex items-center gap-3">
                         <Activity className="w-6 h-6 text-green-500" />
-                        2.4 Monitor System Performance
+                        Monitor System Performance
                     </h1>
                     <p className="text-sm text-muted-foreground">
                         Real-time hardware telemetry and application logs.
@@ -167,7 +190,7 @@ export default function SystemPage() {
                 </div>
                 <div className="p-4 flex flex-col gap-2 flex-1 overflow-y-auto text-green-400">
                     {logs.map((log, index) => (
-                        <p key={index} className={log.includes("ERROR") || log.includes("WARN") ? "text-orange-400" : log.includes("SYSTEM") ? "text-blue-400 font-bold" : ""}>
+                        <p key={index} className={`whitespace-pre-wrap ${log.includes("ERROR") || log.includes("WARN") ? "text-orange-400" : log.includes("SYSTEM") ? "text-blue-400 font-bold" : ""}`}>
                             {log}
                         </p>
                     ))}

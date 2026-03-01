@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 
 const modules = [
     {
-        title: "2.1 Manage Users",
+        title: "Manage Users",
         description: "Creates, updates, or deletes user accounts. Ensures only authenticated and authorized users can access the system.",
         icon: Users,
         href: "/admin/users",
@@ -18,7 +18,7 @@ const modules = [
         bg: "bg-blue-500/10",
     },
     {
-        title: "2.2 View All Predictions",
+        title: "View All Predictions",
         description: "Views all prediction records submitted by users. Helps in monitoring system use and maintaining data oversight.",
         icon: ListTree,
         href: "/admin/predictions",
@@ -26,7 +26,7 @@ const modules = [
         bg: "bg-purple-500/10",
     },
     {
-        title: "2.3 Update AI Model",
+        title: "Update AI Model",
         description: "Updates or replaces the AI model to improve disease detection performance. Ensures system accuracy over time.",
         icon: BrainCircuit,
         href: "/admin/model",
@@ -34,7 +34,7 @@ const modules = [
         bg: "bg-orange-500/10",
     },
     {
-        title: "2.4 Monitor System Performance",
+        title: "Monitor System Performance",
         description: "Checks system logs, processing speed, storage usage, and error reports to ensure consistent and stable operation.",
         icon: Activity,
         href: "/admin/system",
@@ -47,7 +47,7 @@ export default function AdminDashboard() {
     return (
         <div className="flex flex-col gap-8">
             <header className="border-b border-border pb-6">
-                <h1 className="text-3xl font-bold tracking-tight">2. Administrator</h1>
+                <h1 className="text-3xl font-bold tracking-tight">Administrator</h1>
                 <p className="text-muted-foreground mt-2 max-w-2xl">
                     The Administrator manages the system, users, and AI model to maintain smooth operation.
                 </p>

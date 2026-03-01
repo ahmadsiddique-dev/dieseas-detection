@@ -1,5 +1,4 @@
-import { ListTree, Download } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ListTree } from "lucide-react";
 import { getPredictions } from "@/app/admin/data-actions";
 import PredictionsTable from "./PredictionsTable";
 
@@ -14,15 +13,12 @@ export default async function PredictionsPage() {
                 <div>
                     <h1 className="text-2xl font-bold tracking-tight mb-1 flex items-center gap-3">
                         <ListTree className="w-6 h-6 text-purple-500" />
-                        2.2 View All Predictions
+                        View All Predictions
                     </h1>
                     <p className="text-sm text-muted-foreground">
                         Monitor past user submissions and system diagnostics.
                     </p>
                 </div>
-                <Button variant="outline">
-                    <Download className="w-4 h-4 mr-2" /> Export Logs
-                </Button>
             </header>
 
             <PredictionsTable initialPredictions={predictions} />

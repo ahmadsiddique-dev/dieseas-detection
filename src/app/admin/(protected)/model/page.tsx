@@ -81,7 +81,7 @@ export default function ModelPage() {
                 <div>
                     <h1 className="text-2xl font-bold tracking-tight mb-1 flex items-center gap-3">
                         <BrainCircuit className="w-6 h-6 text-orange-500" />
-                        2.3 Manage AI Core
+                        Manage AI Core
                     </h1>
                     <p className="text-sm text-muted-foreground">
                         Deploy proprietary model upgrades securely to the production environment.

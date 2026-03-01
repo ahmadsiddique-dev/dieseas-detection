@@ -1,5 +1,4 @@
-import { Users, UserPlus } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Users } from "lucide-react";
 import { getUsers } from "@/app/admin/data-actions";
 import UsersTable from "./UsersTable";
 
@@ -14,15 +13,12 @@ export default async function ManageUsersPage() {
                 <div>
                     <h1 className="text-2xl font-bold tracking-tight mb-1 flex items-center gap-3">
                         <Users className="w-6 h-6 text-primary" />
-                        2.1 Manage Users
+                        Manage Users
                     </h1>
                     <p className="text-sm text-muted-foreground">
-                        Create, update, or delete authenticated user accounts.
+                        Manage authenticated user accounts.
                     </p>
                 </div>
-                <Button>
-                    <UserPlus className="w-4 h-4 mr-2" /> Add New User
-                </Button>
             </header>
 
             <UsersTable initialUsers={users} />
