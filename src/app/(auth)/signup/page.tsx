@@ -56,7 +56,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="h-screen relative">
+    <div className="h-screen max-h-screen overflow-hidden relative">
       <Navbar />
       <div>
         <div className="rose-gradient bg-background relative min-h-screen overflow-hidden">

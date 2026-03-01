@@ -188,15 +188,18 @@
 ::selection {
   background-color: rgb(245, 176, 47);
   color: black;
+  display: none;
 }
 
 ::-webkit-scrollbar {
   width: 8px;
+  display: none;
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: oklch(0.6942 0.1205 77.2913);
   border-radius: 4px;
+  display: none;
 }
 
 /* ── Dashboard Grid ── */

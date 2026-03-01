@@ -108,10 +108,25 @@ async function resetPasswordApi(
   }
 }
 
+const securityQuestions = {
+  fruit: "What is your favorite fruit?",
+  color: "What is your favorite color?",
+  pet: "What is your favorite pet?",
+  city: "In which city were you born?",
+  cousin: "What is your oldest cousin's name?",
+};
+
+type SecurityQuestionKey =
+  | "fruit"
+  | "color"
+  | "pet"
+  | "city"
+  | "cousin";
+
 export default function ForgotPasswordPage() {
   const [stage, setStage] = useState<Stage>("email");
   const [email, setEmail] = useState("");
-  const [securityQuestion, setSecurityQuestion] = useState("");
+  const [securityQuestion, setSecurityQuestion] = useState<SecurityQuestionKey>("fruit");
   const [answer, setAnswer] = useState("");
   const [loading, setLoading] = useState(false);
   const [answerError, setAnswerError] = useState("");
@@ -119,7 +134,7 @@ export default function ForgotPasswordPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
-  // ── Step 1: check email ──────────────────────────────────────────────────
+  
   async function handleEmailSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
@@ -128,7 +143,7 @@ export default function ForgotPasswordPage() {
       const result = await checkEmailApi(email);
 
       if (result.exists) {
-        setSecurityQuestion(result.question);
+        setSecurityQuestion(result.question as SecurityQuestionKey);
         setStage("security-question");
       } else {
         setStage("not-found");
@@ -321,7 +336,7 @@ export default function ForgotPasswordPage() {
             <form onSubmit={handleAnswerSubmit}>
               <CardContent className="space-y-4">
                 <div className="rounded-lg bg-muted px-4 py-3 text-sm font-medium">
-                  {securityQuestion}
+                  {securityQuestions[securityQuestion]}
                 </div>
 
                 <div className="space-y-2">

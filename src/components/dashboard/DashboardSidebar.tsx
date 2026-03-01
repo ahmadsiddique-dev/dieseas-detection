@@ -69,11 +69,13 @@ export default function DashboardSidebar({
 
     const [scans, setScans] = useState<any[]>([]);
     const [isLoadingHistory, setIsLoadingHistory] = useState(true);
+    const [userProfile, setUserProfile] = useState<{ email: string, displayName: string } | null>(null);
 
     useEffect(() => {
         const fetchHistory = async () => {
             try {
-                const res = await axios.get("/api/scan");
+                // Add a timestamp query parameter to bust aggressive browser/Next.js caching of GET requests
+                const res = await axios.get(`/api/scan?t=${Date.now()}`);
                 if (res.data.success) {
                     setScans(res.data.scans);
                 }
@@ -83,7 +85,28 @@ export default function DashboardSidebar({
                 setIsLoadingHistory(false);
             }
         };
+
+        const fetchUserProfile = async () => {
+            try {
+                const res = await axios.get("/api/user/profile");
+                if (res.data.success) {
+                    setUserProfile(res.data.user);
+                }
+            } catch (error) {
+                console.error("Failed to load user profile", error);
+            }
+        };
+
         fetchHistory();
+        fetchUserProfile();
+
+        // Listen for the custom event dispatched when a new scan completes
+        const handleScanCompleted = () => {
+            fetchHistory();
+        };
+
+        window.addEventListener("scan-completed", handleScanCompleted);
+        return () => window.removeEventListener("scan-completed", handleScanCompleted);
     }, []);
 
     const handleLogout = async () => {
@@ -97,7 +120,8 @@ export default function DashboardSidebar({
         }
     };
 
-    const initial = userName?.charAt(0)?.toUpperCase() || "U";
+    const displayUserName = userProfile?.displayName || userName;
+    const initial = displayUserName?.charAt(0)?.toUpperCase() || "U";
 
     return (
         <TooltipProvider delayDuration={200}>
@@ -191,7 +215,7 @@ export default function DashboardSidebar({
                             <div className="px-3 py-2 text-sm text-sidebar-foreground/50 italic">No recent scans</div>
                         ) : (
                             <div className="flex flex-col gap-1">
-                                {scans.map((scan) => {
+                                {scans.map((scan, index) => {
                                     const isActive = currentScanId === scan._id;
                                     const isHealthy = scan.result.isHealthy;
 
@@ -201,7 +225,7 @@ export default function DashboardSidebar({
                                         : `/dashboard/desktop?scan=${scan._id}`;
 
                                     return (
-                                        <motion.div key={scan._id} variants={itemVariants}>
+                                        <div key={scan._id} className="animate-in fade-in slide-in-from-left-4 duration-500 fill-mode-both" style={{ animationDelay: `${index * 50}ms` }}>
                                             <Tooltip>
                                                 <TooltipTrigger asChild>
                                                     <Link
@@ -234,7 +258,7 @@ export default function DashboardSidebar({
                                                     {isHealthy ? "Healthy" : scan.result.diseaseName}
                                                 </TooltipContent>
                                             </Tooltip>
-                                        </motion.div>
+                                        </div>
                                     );
                                 })}
                             </div>
@@ -246,7 +270,7 @@ export default function DashboardSidebar({
 
                 {/* ── User profile ── */}
                 <motion.div
-                    className="flex items-center gap-3 px-4 py-4"
+                    className="flex items-center gap-3 px-4 py-5.5"
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: 0.3, ease: "easeOut" }}
@@ -254,10 +278,10 @@ export default function DashboardSidebar({
                     <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
                         {initial}
                     </div>
-                    <div className="flex-1 overflow-hidden">
-                        <p className="truncate text-sm font-semibold">{userName}</p>
-                        <p className="truncate text-xs text-sidebar-foreground/60">
-                            Active
+                    <div className="flex flex-col flex-1 overflow-hidden">
+                        <p className="truncate text-sm font-semibold">{displayUserName}</p>
+                        <p className="truncate text-xs text-sidebar-foreground/60" title={userProfile?.email}>
+                            {userProfile?.email || "Active"}
                         </p>
                     </div>
                     <Tooltip>

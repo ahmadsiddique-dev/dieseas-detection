@@ -27,9 +27,9 @@ const testimonials: Testimonial[] = [
 	{
 		quote:
 			"I was losing crops every season without knowing why. This disease detection system identified Brown Spot disease on my rice leaves and gave me clear preventive steps to follow.",
-		name: "Rajesh Kumar",
+		name: "Usman Latif",
 		role: "Smallholder Farmer",
-		company: "Bihar, India",
+		company: "Alipur, Muzaffargarh, Pakistan",
 	},
 ];
 

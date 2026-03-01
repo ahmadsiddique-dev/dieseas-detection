@@ -47,7 +47,7 @@ import {
 import { Input } from "@/components/ui/input";
 import axios from "axios";
 import { toast } from "sonner";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 /* ─────────────────── Types ─────────────────── */
 
@@ -113,6 +113,7 @@ export default function DashboardPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [scanData, setScanData] = useState<ScanData | null>(null);
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   /* ── Load scan from query param (history click) ── */
 
@@ -202,6 +203,9 @@ export default function DashboardPage() {
 
         // Notify the sidebar to re-fetch history
         window.dispatchEvent(new Event("scan-completed"));
+
+        // Redirect to the new scan directly
+        router.push(`?scan=${res.data.scan._id}`);
       } else {
         toast.error(res.data.message || "Scan failed");
       }
@@ -633,7 +637,7 @@ export default function DashboardPage() {
             )}
 
             {/* Input Row */}
-            <div className="relative flex items-center gap-0 rounded-lg border border-border focus-within:ring-1 focus-within:ring-ring">
+            <div className="relative flex items-center gap-0 rounded-lg border border-border bg-background focus-within:ring-1 focus-within:ring-ring">
               {/* Hidden File Input */}
               <Input
                 type="file"
@@ -660,7 +664,7 @@ export default function DashboardPage() {
 
               {/* Textarea */}
               <Textarea
-                className="flex-1 border-none shadow-none resize-none min-h-12 focus-visible:ring-0 bg-transparent"
+                className="flex-1 border-none shadow-none resize-none min-h-12 focus-visible:ring-0 bg-transparent dark:bg-transparent"
                 placeholder="Ask something about your crop health..."
                 value={promptText}
                 onChange={(e) => setPromptText(e.target.value)}
