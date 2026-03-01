@@ -25,30 +25,17 @@ import { toast } from "sonner";
 
 interface SidebarProps {
     userName: string;
+    id?: string;
     onNavClick?: () => void;
 }
 
 const navItems = [
-    {
-        label: "Dashboard",
-        href: "/dashboard",
-        icon: LayoutDashboard,
-    },
-    {
-        label: "Detect Disease",
-        href: "/dashboard/detect",
-        icon: ScanSearch,
-    },
+    
     {
         label: "History",
         href: "/dashboard/history",
         icon: History,
-    },
-    {
-        label: "Settings",
-        href: "/dashboard/settings",
-        icon: Settings,
-    },
+    }
 ];
 
 const sidebarVariants = {
@@ -73,17 +60,18 @@ const itemVariants = {
 
 export default function DashboardSidebar({
     userName,
+    id = "desktop",
     onNavClick,
 }: SidebarProps) {
     const pathname = usePathname();
 
     const handleLogout = async () => {
         try {
-            await axios.post("/api/auth/signout");
+            await axios.delete("/api/auth/signout");
             toast.success("Logged out successfully");
             window.location.href = "/signin";
-        } catch {
-            // On error, still redirect — cookie might already be cleared
+        } catch (error) {
+            toast.error("Failed to log out. Please try again.");
             window.location.href = "/signin";
         }
     };
@@ -124,7 +112,7 @@ export default function DashboardSidebar({
                             const Icon = item.icon;
 
                             return (
-                                <motion.div key={item.href} variants={itemVariants}>
+                                <motion.div key={`${id}-${item.href}`} variants={itemVariants}>
                                     <Tooltip>
                                         <TooltipTrigger asChild>
                                             <Link
@@ -140,7 +128,7 @@ export default function DashboardSidebar({
                         `}
                                             >
                                                 <Icon
-                                                    className={`h-[18px] w-[18px] shrink-0 transition-colors ${isActive
+                                                    className={`h-4.5 w-4.5 shrink-0 transition-colors ${isActive
                                                         ? "text-sidebar-primary"
                                                         : "text-sidebar-foreground/50 group-hover:text-sidebar-primary"
                                                         }`}
@@ -149,8 +137,8 @@ export default function DashboardSidebar({
 
                                                 {isActive && (
                                                     <motion.div
-                                                        className="absolute left-0 h-6 w-[3px] rounded-r-full bg-sidebar-primary"
-                                                        layoutId="activeNav"
+                                                        className="absolute left-0 h-6 w-0.75 rounded-r-full bg-sidebar-primary"
+                                                        layoutId={`activeNav-${id}`}
                                                         transition={{
                                                             type: "spring",
                                                             stiffness: 350,

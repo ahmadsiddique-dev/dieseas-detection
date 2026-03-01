@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 type SingInProps = {
   email: string;
@@ -16,6 +17,7 @@ type SingInProps = {
 };
 
 const Signup = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -27,7 +29,7 @@ const Signup = () => {
 
       if (res.data.success) {
         toast.success(res.data.message);
-        window.location.href = "/dashboard";
+        router.push(`/dashboard/${res.data._id}`);
       } else {
         toast.error(res.data.message);
       }

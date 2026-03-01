@@ -25,7 +25,7 @@ export async function POST(request: Request) {
         if (!isPasswordCorrect) {
             return NextResponse.json({ message: "Incorrect Email or Password", success: false }, { status: 400 })
         }
-        let response = NextResponse.json({ message: "User loggedIn successfully", success: true }, { status: 200 });
+        let response = NextResponse.json({ message: "User loggedIn successfully", success: true, _id: user._id }, { status: 200 });
 
         response.cookies.delete("id");
         response.cookies.set("id", user._id.toString(), { httpOnly: true, secure: true });

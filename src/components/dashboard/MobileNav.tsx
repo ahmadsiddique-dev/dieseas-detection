@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
+import { motion } from "framer-motion";
+import { Sheet, SheetContent, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import DashboardSidebar from "./DashboardSidebar";
 import { Leaf } from "lucide-react";
 
@@ -70,15 +70,18 @@ export default function MobileNav({ userName }: MobileNavProps) {
                     className="w-[280px] p-0 border-sidebar-border bg-sidebar"
                     showCloseButton={false}
                 >
-                    <AnimatePresence>
-                        <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-                        <DashboardSidebar
-                            userName={userName}
-                            onNavClick={() => setOpen(false)}
-                        />
-                    </AnimatePresence>
+                    <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+                    <SheetDescription className="sr-only">
+                        Dashboard navigation links and user profile
+                    </SheetDescription>
+                    <DashboardSidebar
+                        userName={userName}
+                        id="mobile"
+                        onNavClick={() => setOpen(false)}
+                    />
                 </SheetContent>
             </Sheet>
         </>
     );
 }
+

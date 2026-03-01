@@ -190,7 +190,52 @@
   color: black;
 }
 
-.dash-aside {
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: oklch(0.6942 0.1205 77.2913);
+  border-radius: 4px;
+}
+
+/* ── Dashboard Grid ── */
+.dash-layout {
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "stat1      stat2      suggestion"
+    "chart      chart      suggestion"
+    "recent     recent     recent";
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 1.25rem;
+}
+
+.stat1      { grid-area: stat1; }
+.stat2      { grid-area: stat2; }
+.chart      { grid-area: chart; }
+.suggestion { grid-area: suggestion; }
+.recent     { grid-area: recent; }
+
+@media (max-width: 1024px) {
+  .dash-layout {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "stat1       stat2"
+      "chart       chart"
+      "suggestion  suggestion"
+      "recent      recent";
+  }
+}
+
+@media (max-width: 640px) {
+  .dash-layout {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "stat1"
+      "stat2"
+      "chart"
+      "suggestion"
+      "recent";
+  }
 }

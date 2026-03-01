@@ -15,7 +15,7 @@ export default function DashboardLayout({
   return (
     <div className="flex h-screen overflow-hidden bg-background">
       {/* ── Desktop sidebar ── */}
-      <aside className="hidden md:flex md:w-[260px] md:shrink-0 md:border-r md:border-sidebar-border">
+      <aside className="hidden md:flex md:w-65 md:shrink-0 md:border-r md:border-sidebar-border">
         <div className="flex w-full flex-col">
           <DashboardSidebar userName={userName} />
         </div>
