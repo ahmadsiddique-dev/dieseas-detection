@@ -1,10 +1,16 @@
 import { ListTree, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { getPredictions } from "@/app/admin/data-actions";
+import PredictionsTable from "./PredictionsTable";
 
-export default function PredictionsPage() {
+export default async function PredictionsPage() {
+    // Server-side fetch on initial load
+    const response = await getPredictions();
+    const predictions = response.success ? response.data : [];
+
     return (
-        <div className="flex flex-col gap-6 h-full">
-            <header className="flex items-center justify-between border-b border-border pb-6 shrink-0">
+        <div className="flex flex-col gap-6 h-full w-full max-w-[100vw] overflow-hidden">
+            <header className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-0 border-b border-border pb-6 shrink-0">
                 <div>
                     <h1 className="text-2xl font-bold tracking-tight mb-1 flex items-center gap-3">
                         <ListTree className="w-6 h-6 text-purple-500" />
@@ -19,13 +25,7 @@ export default function PredictionsPage() {
                 </Button>
             </header>
 
-            <div className="flex-1 bg-card border border-border rounded-xl p-8 flex flex-col items-center justify-center text-center text-muted-foreground min-h-[400px]">
-                <ListTree className="w-12 h-12 mb-4 text-border" />
-                <h3 className="font-semibold text-foreground mb-1">No prediction records</h3>
-                <p className="text-sm max-w-sm">
-                    No scans have been processed or logged in the system yet.
-                </p>
-            </div>
+            <PredictionsTable initialPredictions={predictions} />
         </div>
     );
 }

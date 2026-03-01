@@ -1,0 +1,67 @@
+"use server";
+
+import mongoose from "mongoose";
+import Signup from "@/models/signup.model";
+import Scan from "@/models/scan.model";
+import { revalidatePath } from "next/cache";
+
+async function connectDB() {
+    if (mongoose.connection.readyState >= 1) {
+        return;
+    }
+    // Using Next.js 15 connection pattern
+    await mongoose.connect(process.env.MONGODB_URI as string);
+}
+
+export async function getUsers() {
+    try {
+        await connectDB();
+        const users = await Signup.find({}).sort({ _id: -1 }).select("-password").lean();
+        // Convert ObjectId to string for client components
+        return { success: true, data: JSON.parse(JSON.stringify(users)) };
+    } catch (error) {
+        console.error("Failed to fetch users:", error);
+        return { success: false, error: "Failed to fetch users" };
+    }
+}
+
+export async function deleteUser(id: string) {
+    try {
+        await connectDB();
+        await Signup.findByIdAndDelete(id);
+        // Also optionally delete their scans to maintain referential integrity
+        await Scan.deleteMany({ userId: id });
+        revalidatePath("/admin/users");
+        return { success: true };
+    } catch (error) {
+        console.error("Failed to delete user:", error);
+        return { success: false, error: "Failed to delete user" };
+    }
+}
+
+export async function getPredictions() {
+    try {
+        await connectDB();
+        // Populate user email if we want to show who made the prediction
+        const predictions = await Scan.find({})
+            .sort({ createdAt: -1 })
+            .populate({ path: "userId", select: "email", model: Signup })
+            .lean();
+        return { success: true, data: JSON.parse(JSON.stringify(predictions)) };
+    } catch (error) {
+        console.error("Failed to fetch predictions:", error);
+        return { success: false, error: "Failed to fetch predictions" };
+    }
+}
+
+export async function deletePrediction(id: string) {
+    try {
+        await connectDB();
+        await Scan.findByIdAndDelete(id);
+        revalidatePath("/admin/predictions");
+        return { success: true };
+    } catch (error) {
+        console.error("Failed to delete prediction:", error);
+        return { success: false, error: "Failed to delete prediction" };
+    }
+}

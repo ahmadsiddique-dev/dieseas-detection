@@ -57,7 +57,7 @@ export default function AdminDashboard() {
                 {modules.map((m) => {
                     const Icon = m.icon;
                     return (
-                        <div key={m.href} className="flex flex-col border border-border bg-card rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow group">
+                        <div key={m.href} className="flex flex-col border border-border bg-card rounded-xl p-6">
                             <div className="flex items-center gap-4 mb-4">
                                 <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${m.bg} ${m.color}`}>
                                     <Icon className="w-6 h-6" />

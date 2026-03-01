@@ -10,10 +10,13 @@ import {
     Activity,
     LogOut,
     ShieldCheck,
-    ListTree
+    ListTree,
+    Menu
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
+import { useState } from "react";
 
 const navItems = [
     { name: "Overview", href: "/admin", icon: LayoutDashboard },
@@ -25,9 +28,10 @@ const navItems = [
 
 export function AdminSidebar() {
     const pathname = usePathname();
+    const [open, setOpen] = useState(false);
 
-    return (
-        <aside className="w-64 border-r border-border bg-card flex flex-col h-full shrink-0 relative">
+    const SidebarContent = () => (
+        <>
             {/* Header */}
             <div className="h-16 flex items-center px-6 border-b border-border gap-3 shrink-0">
                 <div className="w-8 h-8 rounded-lg bg-primary/20 text-primary flex items-center justify-center">
@@ -50,6 +54,7 @@ export function AdminSidebar() {
                         <Link
                             key={item.href}
                             href={item.href}
+                            onClick={() => setOpen(false)}
                             className={cn(
                                 "flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors",
                                 isActive
@@ -75,6 +80,37 @@ export function AdminSidebar() {
                     Terminate Session
                 </Button>
             </div>
-        </aside>
+        </>
+    );
+
+    return (
+        <>
+            {/* Desktop Sidebar */}
+            <aside className="hidden md:flex w-64 border-r border-border bg-card flex-col h-full shrink-0 relative">
+                <SidebarContent />
+            </aside>
+
+            {/* Mobile Header & Hamburger Trigger */}
+            <div className="md:hidden flex items-center justify-between px-4 h-16 border-b border-border bg-card w-full shrink-0">
+                <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-primary/20 text-primary flex items-center justify-center">
+                        <ShieldCheck className="w-5 h-5" />
+                    </div>
+                    <h2 className="text-sm font-bold tracking-tight">Admin Console</h2>
+                </div>
+                <Sheet open={open} onOpenChange={setOpen}>
+                    <SheetTrigger asChild>
+                        <Button variant="ghost" size="icon" className="shrink-0">
+                            <Menu className="w-6 h-6" />
+                            <span className="sr-only">Toggle navigation menu</span>
+                        </Button>
+                    </SheetTrigger>
+                    <SheetContent side="left" className="w-[80vw] sm:w-[300px] p-0 flex flex-col bg-card border-r-border">
+                        <SheetTitle className="sr-only">Admin Navigation</SheetTitle>
+                        <SidebarContent />
+                    </SheetContent>
+                </Sheet>
+            </div>
+        </>
     );
 }
