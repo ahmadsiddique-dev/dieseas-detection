@@ -11,6 +11,7 @@ import {
   FileDownIcon,
   LockKeyholeIcon,
 } from "lucide-react";
+import Link from "next/link";
 
 const page = () => {
   const featuresList = [
@@ -92,12 +93,12 @@ const page = () => {
             measures, and protect your harvest.
           </p>
           <div className="mt-8">
-            <a
-              href="#"
+            <Link
+              href="/signup"
               className="inline-flex items-center justify-center rounded-lg bg-amber-500 px-8 py-3.5 text-base font-semibold text-black shadow-lg transition-all hover:bg-amber-400 hover:shadow-amber-500/25 hover:scale-105"
             >
               Start Detection
-            </a>
+            </Link>
           </div>
         </div>
       </div>

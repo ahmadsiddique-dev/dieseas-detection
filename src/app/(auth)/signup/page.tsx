@@ -18,6 +18,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import axios from "axios";
+import Loader from "../../../../components/loader";
+import React from "react";
 
 type SignupProps = {
   email: string;
@@ -28,6 +30,7 @@ type SignupProps = {
 };
 
 const Signup = () => {
+  const [loading, setLoading] = React.useState(false);
   const {
     register,
     watch,
@@ -40,18 +43,21 @@ const Signup = () => {
     delete data.confirmPassword;
 
     try {
+      setLoading(true);
       const res = await axios.post("/api/auth/signup", data, {
         withCredentials: true,
       });
 
       if (res?.data?.success) {
         toast.success("User signed up successfully");
-        window.location.href = "/dashboard";
+        window.location.href = "/signin";
       } else {
         toast.error(res?.data?.message || "Failed to sign up user");
       }
     } catch (error) {
       toast.error("An error occurred while signing up user");
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -259,8 +265,8 @@ const Signup = () => {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
-                        <Button type="submit" className="w-full text-black">
-                          Continue
+                        <Button disabled={loading} type="submit" className="w-full text-black">
+                          Continue <Loader isLoading={loading} className="ml-2" />
                         </Button>
                       </motion.div>
                     </form>

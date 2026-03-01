@@ -39,6 +39,7 @@ async function checkEmailApi(email: string): Promise<CheckEmailResponse> {
       email,
     });
 
+    console.log("Check email response:", response.data);
     if (response.data.success) {
       toast.success(response.data.message);
 

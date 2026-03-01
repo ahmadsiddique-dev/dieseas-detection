@@ -10,6 +10,8 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import React from "react";
+import Loader from "../../../../components/loader";
 
 type SingInProps = {
   email: string;
@@ -17,6 +19,7 @@ type SingInProps = {
 };
 
 const Signup = () => {
+  const [loading, setLoading] = React.useState(false);
   const router = useRouter();
   const {
     register,
@@ -25,6 +28,7 @@ const Signup = () => {
   } = useForm<SingInProps>();
   const onSubmit = async (data: SingInProps) => {
     try {
+      setLoading(true);
       const res = await axios.post("/api/auth/signin", data);
 
       if (res.data.success) {
@@ -35,6 +39,8 @@ const Signup = () => {
       }
     } catch (error) {
       toast.error("An error occurred while signing in. Please try again.");
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -197,8 +203,8 @@ const Signup = () => {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
-                        <Button type="submit" className="w-full">
-                          Continue
+                        <Button disabled={loading} type="submit" className="w-full">
+                          Continue <Loader isLoading={loading} className="ml-2" />
                         </Button>
                       </motion.div>
                     </form>

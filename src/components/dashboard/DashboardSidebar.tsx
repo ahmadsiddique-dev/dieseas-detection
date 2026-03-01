@@ -69,7 +69,6 @@ export default function DashboardSidebar({
 
     const [scans, setScans] = useState<any[]>([]);
     const [isLoadingHistory, setIsLoadingHistory] = useState(true);
-    const [userProfile, setUserProfile] = useState<{ email: string, displayName: string } | null>(null);
 
     useEffect(() => {
         const fetchHistory = async () => {
@@ -85,20 +84,7 @@ export default function DashboardSidebar({
                 setIsLoadingHistory(false);
             }
         };
-
-        const fetchUserProfile = async () => {
-            try {
-                const res = await axios.get("/api/user/profile");
-                if (res.data.success) {
-                    setUserProfile(res.data.user);
-                }
-            } catch (error) {
-                console.error("Failed to load user profile", error);
-            }
-        };
-
         fetchHistory();
-        fetchUserProfile();
 
         // Listen for the custom event dispatched when a new scan completes
         const handleScanCompleted = () => {
@@ -120,8 +106,7 @@ export default function DashboardSidebar({
         }
     };
 
-    const displayUserName = userProfile?.displayName || userName;
-    const initial = displayUserName?.charAt(0)?.toUpperCase() || "U";
+    const initial = userName?.charAt(0)?.toUpperCase() || "U";
 
     return (
         <TooltipProvider delayDuration={200}>
@@ -278,10 +263,10 @@ export default function DashboardSidebar({
                     <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
                         {initial}
                     </div>
-                    <div className="flex flex-col flex-1 overflow-hidden">
-                        <p className="truncate text-sm font-semibold">{displayUserName}</p>
-                        <p className="truncate text-xs text-sidebar-foreground/60" title={userProfile?.email}>
-                            {userProfile?.email || "Active"}
+                    <div className="flex-1 overflow-hidden">
+                        <p className="truncate text-sm font-semibold">{userName}</p>
+                        <p className="truncate text-xs text-sidebar-foreground/60">
+                            Active
                         </p>
                     </div>
                     <Tooltip>

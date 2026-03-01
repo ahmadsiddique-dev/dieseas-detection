@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 
 import { cn } from '@/lib/utils'
+import Link from 'next/link'
 
 type Features = {
   icon: ComponentType
@@ -29,10 +30,10 @@ const Features = ({ featuresList }: { featuresList: Features }) => {
             and take timely preventive action.
           </p>
           <Button variant='outline' className='rounded-lg text-base shadow-none has-[>svg]:px-6' size='lg' asChild>
-            <a href='#'>
+            <Link href='/signup'>
               Explore all features
               <ArrowRightIcon />
-            </a>
+            </Link>
           </Button>
         </div>
 
