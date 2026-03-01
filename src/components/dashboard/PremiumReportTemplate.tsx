@@ -225,7 +225,7 @@ export default function PremiumReportTemplate({
                     <div
                         style={{
                             display: "inline-block", // Explicit block sizing prevents text squish
-                            padding: "6px 14px",
+                            padding: "6px 14px 17px",
                             borderRadius: "8px",
                             fontSize: "11px",
                             fontWeight: 700,
