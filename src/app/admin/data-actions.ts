@@ -10,7 +10,7 @@ async function connectDB() {
         return;
     }
     // Using Next.js 15 connection pattern
-    await mongoose.connect(process.env.MONGODB_URI as string);
+    await mongoose.connect(`${process.env.MONGODB_URI}/test`); // The default DB
 }
 
 export async function getUsers() {

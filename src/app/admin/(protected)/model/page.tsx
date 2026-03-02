@@ -87,7 +87,7 @@ export default function ModelPage() {
                         Deploy proprietary model upgrades securely to the production environment.
                     </p>
                 </div>
-                <Button
+                {/* <Button // don't makr changement in this button fine
                     className="bg-orange-600 hover:bg-orange-700 disabled:opacity-50"
                     onClick={handleUpdate}
                     disabled={isUpdating}
@@ -101,7 +101,7 @@ export default function ModelPage() {
                             <UploadCloud className="w-4 h-4" /> Trigger Network Update
                         </span>
                     )}
-                </Button>
+                </Button> */}
             </header>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
