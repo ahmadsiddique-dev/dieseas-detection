@@ -351,11 +351,11 @@ export default function PremiumReportTemplate({
                                     <div style={{ height: "24px", width: "24px", flexShrink: 0, borderRadius: "6px", backgroundColor: T.primaryBg, color: T.primary, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", fontWeight: 800 }}>
                                         {idx + 1}
                                     </div>
-                                    <div style={{ overflow: "hidden", width: "100%" }}>
-                                        <h4 style={{ fontSize: "13px", fontWeight: 700, color: T.textMain, marginBottom: "4px", lineHeight: "1.2", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                                    <div style={{ width: "100%" }}>
+                                        <h4 style={{ fontSize: "14px", fontWeight: 700, color: T.textMain, marginBottom: "6px", lineHeight: "1.3" }}>
                                             {item.title}
                                         </h4>
-                                        <p style={{ fontSize: "12px", color: T.textMuted, lineHeight: "1.4", paddingBottom: "2px", overflow: "hidden" }}>
+                                        <p style={{ fontSize: "12px", color: T.textMuted, lineHeight: "1.5" }}>
                                             {item.text}
                                         </p>
                                     </div>
